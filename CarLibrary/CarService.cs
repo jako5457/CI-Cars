@@ -4,11 +4,11 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace CarLibrary
 {
-    public class CarService
+    public class CarService : ICarService
     {
         private readonly CarDbContext context;
 
-        public CarService(CarDbContext context) 
+        public CarService(CarDbContext context)
         {
             this.context = context;
         }
@@ -17,7 +17,7 @@ namespace CarLibrary
 
         public Car? GetCarById(int id) => context.Cars.FirstOrDefault(x => x.Id == id);
 
-        public void AddCar(string name,string  type)
+        public void AddCar(string name, string type)
         {
             context.Cars.Add(new Car { Name = name, Type = type });
             context.SaveChanges();
@@ -28,7 +28,7 @@ namespace CarLibrary
             var car = context.Cars.FirstOrDefault(x => x.Id == id);
 
             if (car != null)
-            context.Cars.Remove(car);
+                context.Cars.Remove(car);
             context.SaveChanges();
         }
     }

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarLibrary\CarLibrary.csproj" />
+    <ProjectReference Include="..\CarWebsite\CarWebsite.csproj" />
   </ItemGroup>
 
 </Project>

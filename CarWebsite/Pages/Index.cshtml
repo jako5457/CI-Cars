@@ -1,0 +1,11 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Cars";
+}
+
+
+@foreach (var car in Model.Cars)
+{
+   <p>@car.Id - Car: @car.Name Type: @car.Type </p>
+}
