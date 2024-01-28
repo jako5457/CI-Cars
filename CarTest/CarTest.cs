@@ -1,16 +1,19 @@
 using CarLibrary;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarTest
 {
     public class CarTest
     {
+
         [Fact]
         public void GetAmountOfCars()
         {
             int ExpectedCars = 4;
 
             //Arrange
-            CarService carService = new CarService();
+            using CarDbContext dbContext = TestMethods.CreateDbContext<CarDbContext>();
+            CarService carService = new CarService(dbContext);
 
             //Act
             int Cars = carService.GetCars().Count();
@@ -25,7 +28,8 @@ namespace CarTest
             int ExpectedCarId = 1;
 
             //Arrange
-            CarService carService = new CarService();
+            using CarDbContext dbContext = TestMethods.CreateDbContext<CarDbContext>();
+            CarService carService = new CarService(dbContext);
 
             //Act
             var car = carService.GetCarById(ExpectedCarId);
@@ -41,7 +45,8 @@ namespace CarTest
             int ExpectedCreatedCarId = 5;
 
             //Arrange
-            CarService carService = new CarService();
+            using CarDbContext dbContext = TestMethods.CreateDbContext<CarDbContext>();
+            CarService carService = new CarService(dbContext);
 
             //Act
             carService.AddCar("Ferrari", "Gas");
@@ -59,7 +64,8 @@ namespace CarTest
             int ExpectedCarCount = 3;
 
             //Arrange
-            CarService carService = new CarService();
+            using CarDbContext dbContext = TestMethods.CreateDbContext<CarDbContext>();
+            CarService carService = new CarService(dbContext);
 
             //Act
             carService.RemoveCar(4);
@@ -79,18 +85,24 @@ namespace CarTest
         [InlineData(1000)]
         public void CreateAlotOfCars(int Amount)
         {
+            //Arrange
             int ExpectedAmountOfCars = Amount + 4;
 
-            //Arrange
-            CarService carService = new CarService();
+            string ConnectionString = "Cardb" + Random.Shared.Next(0, 10000);
 
             //Act
             for (int i = 0; i < Amount; i++) 
             {
+                using CarDbContext dbContext = TestMethods.CreateDbContext<CarDbContext>(ConnectionString,true);
+                CarService carService = new CarService(dbContext);
+
                 carService.AddCar("Car", "Type");
             }
 
-            int CreatedCars = carService.GetCars().Count();
+            using CarDbContext Context = TestMethods.CreateDbContext<CarDbContext>(ConnectionString, true);
+            CarService Service = new CarService(Context);
+
+            int CreatedCars = Service.GetCars().Count();
             
             //Assert
             Assert.Equal(ExpectedAmountOfCars, CreatedCars);

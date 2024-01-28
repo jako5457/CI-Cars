@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarLibrary.Dto
+namespace CarLibrary.Entities
 {
     public class Car
     {
