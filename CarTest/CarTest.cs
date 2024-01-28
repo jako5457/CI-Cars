@@ -69,5 +69,31 @@ namespace CarTest
 
             Assert.Equal(ExpectedCarCount, ActualCarCount);
         }
+
+        [Theory]
+        [InlineData(10)]
+        [InlineData(20)]
+        [InlineData(50)]
+        [InlineData(100)]
+        [InlineData(500)]
+        [InlineData(1000)]
+        public void CreateAlotOfCars(int Amount)
+        {
+            int ExpectedAmountOfCars = Amount + 4;
+
+            //Arrange
+            CarService carService = new CarService();
+
+            //Act
+            for (int i = 0; i < Amount; i++) 
+            {
+                carService.AddCar("Car", "Type");
+            }
+
+            int CreatedCars = carService.GetCars().Count();
+            
+            //Assert
+            Assert.Equal(ExpectedAmountOfCars, CreatedCars);
+        }
     }
 }
