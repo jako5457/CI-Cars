@@ -4,8 +4,30 @@
     ViewData["Title"] = "Cars";
 }
 
+<a class="btn btn-primary" asp-page="Cars/Create">Create car</a>
+<th />
+<br />
 
-@foreach (var car in Model.Cars)
-{
-   <p>@car.Id - Car: @car.Name Type: @car.Type </p>
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Car</th>
+            <th scope="col">Type</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model.Cars)
+        {
+            <tr>
+                <th scope="row">@car.Id</th>
+                <td>@car.Name</td>
+                <td>@car.Type</td>
+                <td><a class="btn" asp-page="Cars/Info" asp-route-Id="@car.Id">ℹ️</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

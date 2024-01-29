@@ -1,0 +1,16 @@
+﻿@page
+@model CarWebsite.Pages.Cars.CreateModel
+@{
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="CarName">Name</label>
+        <input asp-for="Form.Name" type="text" class="form-control" id="CarName" aria-describedby="emailHelp" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="CarType">Type</label>
+        <input asp-for="Form.Type" type="text" class="form-control" id="CarType" aria-describedby="emailHelp" placeholder="Enter type">
+    </div>
+    <button class="btn btn-success" type="submit" >Add</button>
+</form>
