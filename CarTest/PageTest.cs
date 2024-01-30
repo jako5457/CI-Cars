@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Chromium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 
@@ -18,9 +19,21 @@ namespace CarTest
 
         public static List<Object[]> WebDrivers { get => new List<object[]>
         {
-            new object[] { () => new EdgeDriver() },
-            new object[] { () => new FirefoxDriver() },
-            new object[] { () => new ChromeDriver() }
+            new object[] { () => {
+                //var options = new EdgeOptions();
+                //options.AddArguments("headless");
+                return new EdgeDriver(); 
+            } },
+            new object[] { () => {
+                //var options = new FirefoxOptions();
+                //options.AddArgument("headless");
+                new FirefoxDriver(); 
+            } },
+            new object[] { () => {
+                //var options = new ChromeOptions();
+                //options.AddArgument("headless");
+                return new ChromeDriver();
+            } }
         };}
 
 
