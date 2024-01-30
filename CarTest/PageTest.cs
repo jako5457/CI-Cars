@@ -18,7 +18,7 @@ namespace CarTest
         {
             //Arrange
             string ExpectedTitle = "Cars";
-            IWebDriver webDriver = new EdgeDriver();
+            using IWebDriver webDriver = new EdgeDriver();
 
             //Act
             webDriver.Navigate().GoToUrl(Address);
@@ -32,7 +32,7 @@ namespace CarTest
         public void TestCreateCar()
         {
             //Arrange
-            IWebDriver webDriver = new EdgeDriver();
+            using IWebDriver webDriver = new EdgeDriver();
 
             //Act
             webDriver.Navigate().GoToUrl(Address + "Cars/Create");
