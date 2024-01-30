@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
 
 namespace CarTest
 {
@@ -13,12 +16,21 @@ namespace CarTest
 
         public static string Address = "https://localhost:7289/";
 
-        [Fact]
-        public void TestPageLoad()
+        public static List<Object[]> WebDrivers { get => new List<object[]>
+        {
+            new object[] { () => new EdgeDriver() },
+            new object[] { () => new FirefoxDriver() },
+            new object[] { () => new ChromeDriver() }
+        };}
+
+
+        [Theory]
+        [MemberData(nameof(WebDrivers))]
+        public void TestPageLoad(Func<IWebDriver> Setup)
         {
             //Arrange
             string ExpectedTitle = "Cars";
-            IWebDriver webDriver = new EdgeDriver();
+            IWebDriver webDriver = Setup();
 
             //Act
             webDriver.Navigate().GoToUrl(Address);
@@ -28,11 +40,12 @@ namespace CarTest
             webDriver.Close();
         }
 
-        [Fact]
-        public void TestCreateCar()
+        [Theory]
+        [MemberData(nameof(WebDrivers))]
+        public void TestCreateCar(Func<IWebDriver> Setup)
         {
             //Arrange
-            IWebDriver webDriver = new EdgeDriver();
+            IWebDriver webDriver = Setup();
 
             //Act
             webDriver.Navigate().GoToUrl(Address + "Cars/Create");
