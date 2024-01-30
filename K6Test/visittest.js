@@ -14,6 +14,6 @@ export const options = {
 };
 
 export default function () {
-    const res = http.get('https://localhost:7289/');
+    const res = http.get('http://localhost:5092/');
     sleep(1);
 }
